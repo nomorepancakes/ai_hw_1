@@ -14,6 +14,8 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("hello");
+        //System.out.println("hello");
+        Problem p0 = new Problem();
+        p0.funct();
     }
 }
