@@ -1,4 +1,5 @@
-package ai_hw_1;
+//import java.util.*;
+//package ai_hw_1;
 
 /**
  *
@@ -28,9 +29,7 @@ public class State {
         return false;
     }
     /**
-     * set goal
-     * @param s
-     * @return 
+     * set goal 
      */
     public void setGoal(){
         this.setCannibal(0);
@@ -58,15 +57,28 @@ public class State {
             return null;
         }
         
-        if (boat == 0){     // Going right
+        if (this.getBoatLoc() == 0){     // Going right
             if(     this.getLeftCannibal()-numC > 0 &&      // If there is enough on the left
                     this.getLeftMissionary()-numM > 0 ){
-                newState.setCannibal(this.getLeftCannibal() - numM);
-                newState.setCannibal(this.getLeftCannibal() - numM);
+                newState.setCannibal(this.getLeftCannibal() - numC);
+                newState.setMissionary(this.getLeftMissionary() - numM);
+                
+                //System.out.println("going right. boat at "+ this.getBoatLoc());
+                newState.setBoat(1);
+                //System.out.println("going right. new boat at "+ newState.getBoatLoc());
+                
             } else return null;
             
+        } else { // going left
+            if(     this.getRightCannibal()-numC > 0 &&      // If there is enough on the right
+                    this.getRightMissionary()-numM > 0 ){
+                newState.setCannibal(this.getLeftCannibal() + numC);
+                newState.setMissionary(this.getLeftMissionary() + numM);
+                
+                newState.setBoat(0);
+                
+            } else return null;
         }
-        
         return newState;
     }
   
@@ -93,6 +105,9 @@ public class State {
     }
     
     public void printState(){
+        if (this == null)
+            System.out.println("null state");
+        else
         System.out.println("Cannibals: \t" + cannibal + " | " + (CANN_NUM - cannibal) +
                             "\nMissionaries: \t" + missionary + " | " + (MISS_NUM - missionary) +
                             "\nBoat: \t\t" + boat);
@@ -117,7 +132,7 @@ public class State {
      * @param num 
      */
     private void setBoat(int num){
-        if (num >= 0 && num <= 1)
+        //if (num >= 0 && num <= 1)
             boat = num;
     }
 }
